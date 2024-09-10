@@ -13,7 +13,10 @@ const login = async (req,res,next)=>{
 
     const token = jwt.sign({_id:userFind._id}, process.env.JWT_SECRET,{expiresIn: "168hr"});
 
-    res.status(200).cookie("token",token).json({
+    res.status(200).cookie("token",token,{
+      httpOnly: true,
+      secure: true,
+    }).json({
       success: true,
       message: "login successfully",
       user:{
@@ -44,7 +47,10 @@ const register = async (req,res, next)=>{
     
     const token = jwt.sign({_id:user._id}, process.env.JWT_SECRET,{expiresIn: "168hr"});
     
-    res.status(201).cookie("token",token).json({
+    res.status(201).cookie("token",token,{
+      httpOnly: true,
+      secure: true,
+    }).json({
       success: true,
       message: "User Created",
       user
