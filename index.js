@@ -20,7 +20,7 @@ connectDB();
 // making server
 const app = express();
 app.use(cors({
-              origin: 'https://02651b08-cdb5-4a89-90d0-68db4daa7abb-00-1rzeslpu7rux8.sisko.replit.dev/',
+              origin: 'https://02651b08-cdb5-4a89-90d0-68db4daa7abb-00-1rzeslpu7rux8.sisko.replit.dev',
               methods: ['GET', 'POST', 'PUT', 'DELETE'],
               allowedHeaders: ['Content-Type'],
               credentials: true
