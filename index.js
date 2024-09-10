@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDB from "./config/db.js";
 import userRoute from "./routes/user.js";
 import productRoute from "./routes/product.js";
@@ -18,7 +19,8 @@ connectDB();
 
 // making server
 const app = express();
-app.use(cookieParser())
+app.use(cors());
+app.use(cookieParser());
 app.use(bodyParser.json({ extendet: true }));
 
 app.get("/", (req, res) => {
