@@ -19,7 +19,7 @@ const login = async (req,res,next)=>{
     res.status(200).cookie("token",token,{
       httpOnly: true,
       secure: true,
-      sameSite: "strict"
+      sameSite: "none"
     }).json({
       success: true,
       message: "login successfully",
@@ -58,7 +58,7 @@ const register = async (req,res, next)=>{
     res.status(201).cookie("token",token,{
       httpOnly: true,
       secure: true,
-      sameSite: "strict"
+      sameSite: "none"
     }).json({
       success: true,
       message: "User Created",

@@ -24,7 +24,6 @@ const corsOptions = {
   origin: 'https://02651b08-cdb5-4a89-90d0-68db4daa7abb-00-1rzeslpu7rux8.sisko.replit.dev', // Replace with your frontend URL
   methods: 'GET,POST,PUT,DELETE,OPTIONS',
   allowedHeaders: 'Content-Type',
-  credentials: true,
 };
 
 app.use(cors(corsOptions));
