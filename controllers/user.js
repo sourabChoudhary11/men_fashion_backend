@@ -17,10 +17,7 @@ const login = async (req,res,next)=>{
     const token = jwt.sign({_id:userFind._id}, process.env.JWT_SECRET);
 
     res.status(200).cookie("token",token,{
-      maxAge: 7*24*60*60*1000,
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict"
+      maxAge: 7*24*60*60*1000
     }).json({
       success: true,
       message: "login successfully",
@@ -57,10 +54,7 @@ const register = async (req,res, next)=>{
     const token = jwt.sign({_id:user._id}, process.env.JWT_SECRET);
     
     res.status(201).cookie("token",token,{
-      maxAge: 7*24*60*60*1000,
-      httpOnly: true,
-      secure: true,
-      sameSite: "none"
+      maxAge: 7*24*60*60*1000
     }).json({
       success: true,
       message: "User Created",
