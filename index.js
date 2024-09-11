@@ -22,7 +22,7 @@ const app = express();
 app.use(cors({
               origin: '*',
               methods: ['GET', 'POST', 'PUT', 'DELETE'],
-              allowedHeaders: ['Content-Type'],
+              allowedHeaders: ['Content-Type','Access-Control-Allow-Origin'],
               credentials: true
             }));
 app.use(cookieParser());
