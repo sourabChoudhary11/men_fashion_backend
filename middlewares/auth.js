@@ -16,15 +16,15 @@ const authentication = (req,res,next)=>{
   next();
 }
 
-const authVerification = (req,res,next)=>{
+const GetCookie = (req,res,next)=>{
   try{
     const token = req.cookies.token;
-    if(!token) return next(new Error("please provide token"))
+    if(!token) return next(new Error("cookie not found"))
     jwt.verify(token, process.env.JWT_SECRET, (error,user)=>{
       if(error) return next(new Error("invalid token")); 
       res.json({
         success:true,
-        user
+        cookie:user
       })
     })
   } catch(err){
@@ -34,5 +34,5 @@ const authVerification = (req,res,next)=>{
 
 export {
   authentication,
-  authVerification
+  GetCookie
 }

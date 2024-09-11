@@ -7,7 +7,7 @@ import connectDB from "./config/db.js";
 import userRoute from "./routes/user.js";
 import productRoute from "./routes/product.js";
 import orderRoute from "./routes/order.js";
-import {authVerification} from "./middlewares/auth.js";
+import {GetCookie} from "./middlewares/auth.js";
 
 dotenv.config();
 
@@ -37,10 +37,10 @@ app.get("/", (req, res) => {
 });
 
 // specify the routes
+app.get("/get-cookie", GetCookie);
 app.use("/user", userRoute);
 app.use("/product", productRoute);
 app.use("/order", orderRoute);
-app.post("/auth/verify", authVerification);
 
 app.get("*", (req, res) => {
   res.status(404).send(`404 - Page Not Found`);
