@@ -60,7 +60,7 @@ const register = async (req,res, next)=>{
       maxAge: 7*24*60*60*1000,
       httpOnly: true,
       secure: true,
-      sameSite: "strict"
+      sameSite: "none"
     }).json({
       success: true,
       message: "User Created",
