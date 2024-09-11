@@ -14,9 +14,10 @@ const login = async (req,res,next)=>{
     const matchPassword = await bcrypt.compare(password, userFind.password);
     if(!matchPassword) return next(new Error("incorrect username or password"));
 
-    const token = jwt.sign({_id:userFind._id}, process.env.JWT_SECRET,{expiresIn: "168hr"});
+    const token = jwt.sign({_id:userFind._id}, process.env.JWT_SECRET);
 
     res.status(200).cookie("token",token,{
+      maxAge: 7*24*60*60*1000,
       httpOnly: true,
       secure: true,
       sameSite: "none"
@@ -53,9 +54,10 @@ const register = async (req,res, next)=>{
     console.log(user);
     user.save();
     
-    const token = jwt.sign({_id:user._id}, process.env.JWT_SECRET,{expiresIn: "168hr"});
+    const token = jwt.sign({_id:user._id}, process.env.JWT_SECRET);
     
     res.status(201).cookie("token",token,{
+      maxAge: 7*24*60*60*1000,
       httpOnly: true,
       secure: true,
       sameSite: "none"
