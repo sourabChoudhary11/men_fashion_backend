@@ -19,11 +19,16 @@ connectDB();
 
 // making server
 const app = express();
-app.use(cors({
-   origin: "https://02651b08-cdb5-4a89-90d0-68db4daa7abb-00-1rzeslpu7rux8.sisko.replit.dev", // Replace with your actual frontend URL
-    methods: 'GET,POST,PUT,DELETE',
-    credentials: true,
-}));
+
+const corsOptions = {
+  origin: 'https://02651b08-cdb5-4a89-90d0-68db4daa7abb-00-1rzeslpu7rux8.sisko.replit.dev', // Replace with your frontend URL
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  allowedHeaders: 'Content-Type',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.json({ extendet: true }));
 
