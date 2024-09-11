@@ -17,16 +17,17 @@ const authentication = (req,res,next)=>{
 }
 
 const GetCookie = (req,res,next)=>{
+  console.log(req.cookies)
   try{
-    const token = req.cookies.token;
+    const token = req.cookies.authToken;
     if(!token) return next(new Error("cookie not found"))
-    jwt.verify(token, process.env.JWT_SECRET, (error,user)=>{
-      if(error) return next(new Error("invalid token")); 
-      res.json({
-        success:true,
-        cookie:user
-      })
+    res.json({
+      success:true,
+      cookie:token
     })
+    // jwt.verify(token, process.env.JWT_SECRET, (error,user)=>{
+    //   if(error) return next(new Error("invalid token")); 
+    // })
   } catch(err){
     next(err)
   }
