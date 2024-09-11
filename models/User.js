@@ -14,6 +14,15 @@ const UserSchema = new mongoose.Schema({
     minlength: [6, "password must be at least 6 characters"],
     select: false,
   },
+  logo:{
+    type: String,
+    required: [true,"please provide the logo"],
+  },
+  role:{
+    type: String,
+    enum: ["admin","user"],
+    default: "user",
+  },
   createdAt: {
     type: Date,
     default: Date.now,

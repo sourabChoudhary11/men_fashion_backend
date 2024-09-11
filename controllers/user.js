@@ -1,12 +1,15 @@
 import User from "../models/User.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import {AvatarGenerator} from "random-avatar-generator"
+
+const avatar = new AvatarGenerator();
 
 const login = async (req,res,next)=>{
   try{
     const {name, password} = req.body;
     const userName = name.toLowerCase();
-    const userFind = await User.findOne({name:userName}).select("name password");
+    const userFind = await User.findOne({name:userName}).select("name logo role password");
     if(!userFind) return next(new Error("incorrect username or password"));
     const matchPassword = await bcrypt.compare(password, userFind.password);
     if(!matchPassword) return next(new Error("incorrect username or password"));
@@ -22,6 +25,8 @@ const login = async (req,res,next)=>{
       user:{
         _id: userFind._id,
         name: userFind.name,
+        logo:  userFind.logo,
+        role: userFind.role
       }
     })
   }catch(err){
@@ -36,11 +41,13 @@ const register = async (req,res, next)=>{
   const userFind = await User.findOne({name:userName});
   console.log(userFind)
   if(userFind) return next(new Error("user already exists"));
-  const hashedPassword = await bcrypt.hash(password, 10)
+  const hashedPassword = await bcrypt.hash(password, 10);
+  
   try {
     const user = new User({
       name: userName,
-      password:hashedPassword
+      password:hashedPassword,
+      logo: avatar.generateRandomAvatar(userName)
     })
     console.log(user);
     user.save();
