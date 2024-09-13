@@ -3,7 +3,10 @@ import CartItem from "../models/CartItem.js";
 const GetUserCartItems= (req,res)=>{
   try{
     const {userId} = req.params;
-    const cartItems = CartItem.find({userID:userId});
+    const cartItems = CartItem.find({userID:userId}).populate({
+      path: "productID",
+      select: "name images price quantity"
+    });
     if(!cartItems) return next(new Error("invalid user id"))
     res.status(200).json({
       success: true,
