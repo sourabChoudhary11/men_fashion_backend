@@ -1,9 +1,9 @@
 import CartItem from "../models/CartItem.js";
 
-const GetUserCartItems= (req,res)=>{
+const GetUserCartItems=async (req,res,next)=>{
   try{
     const {userId} = req.params;
-    const cartItems = CartItem.find({userID:userId}).populate({
+    const cartItems = await CartItem.find({userID:userId}).populate({
       path: "productID",
       select: "name images price quantity"
     });
@@ -16,11 +16,11 @@ const GetUserCartItems= (req,res)=>{
     next(err)
   }
 };
-const UpdateCartItem=(req,res)=>{
+const UpdateCartItem=async (req,res,next)=>{
   try{
     const {id} = req.params;
     const {quantity} = req.body;
-    const cartItem = CartItem.findByIdAndUpdate(id,{quantity:quantity},{new:true});
+    const cartItem = await CartItem.findByIdAndUpdate(id,{quantity:quantity},{new:true});
     if(!cartItem) return next(new Error("invalid item id"))
     res.status(200).json({
       success: true,
@@ -30,10 +30,10 @@ const UpdateCartItem=(req,res)=>{
     next(err)
   }
 };
-const DeleteCartItem=(req,res)=>{
+const DeleteCartItem=async (req,res,next)=>{
   try{
     const {id} = req.params;
-    const cartItem = CartItem.findByIdAndDelete(id);
+    const cartItem = await CartItem.findByIdAndDelete(id);
     if(!cartItem) return next(new Error("invalid item id"))
     res.status(200).json({
       success: true,
@@ -43,12 +43,13 @@ const DeleteCartItem=(req,res)=>{
     next(err)
   }
 };
-const AddCartItem=(req,res)=>{
+const AddCartItem=(req,res,next)=>{
+  console.log("run add cart item")
   try{
-    const {productId, userId, price, quantity} = req.body;
+    const {productID, userID, price, quantity} = req.body;
     const cartItem = new CartItem({
-      productID:productId,
-      userID:userId,
+      productID,
+      userID,
       price,
       quantity
     });
