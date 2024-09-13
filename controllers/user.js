@@ -67,8 +67,20 @@ const register = async (req,res, next)=>{
 
 
 const profile = (req,res)=>{
-  res.send("User profile");
+  try{
+  const {id} = req.params;
+  const user = User.findById(id);
+  res.status(200).json({
+    success: true,
+    message: "profile fetched successfully",
+    user
+  })
+  }
+  catch(err){
+    next(err)
+  }
 }
+
 
 export {
   login,
