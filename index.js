@@ -9,20 +9,19 @@ import productRoute from "./routes/product.js";
 import orderRoute from "./routes/order.js";
 import {GetCookie} from "./middlewares/auth.js";
 import cartItemRoute from "./routes/cartItem.js";
+import PayNow from "./controllers/payNow.js";
 
 dotenv.config();
 
 const port = process.env.PORT || 3000;
 console.log(port);
 
-// connect mongodb database
 connectDB();
 
-// making server
 const app = express();
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URI, // Replace with your frontend URL
+  origin: process.env.FRONTEND_URI, 
   methods: 'GET,POST,PUT,DELETE,OPTIONS',
   allowedHeaders: 'Content-Type',
   credentials: true
@@ -39,6 +38,7 @@ app.get("/", (req, res) => {
 
 // specify the routes
 app.get("/get-cookie", GetCookie);
+app.post("/pay-now", PayNow);
 app.use("/user", userRoute);
 app.use("/product", productRoute);
 app.use("/order", orderRoute);
