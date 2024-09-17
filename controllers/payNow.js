@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const PayNow = async (req, res, next) => {
-    const { amount, description } = req.body;
+    const { amount } = req.body;
   
     try {
       const paymentIntent = await stripe.paymentIntents.create({
