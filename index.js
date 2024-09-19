@@ -7,9 +7,9 @@ import connectDB from "./config/db.js";
 import userRoute from "./routes/user.js";
 import productRoute from "./routes/product.js";
 import orderRoute from "./routes/order.js";
-import {GetCookie} from "./middlewares/auth.js";
 import cartItemRoute from "./routes/cartItem.js";
-import paymentRoute from "./controllers/payment.js";
+import paymentRoute from "./routes/payment.js";
+import {GetCookie} from "./middlewares/auth.js";
 
 dotenv.config();
 
