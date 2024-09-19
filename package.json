@@ -22,6 +22,6 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.1",
     "random-avatar-generator": "^2.0.0",
-    "stripe": "^16.11.0"
+     "razorpay": "^2.9.4"
   }
 }
